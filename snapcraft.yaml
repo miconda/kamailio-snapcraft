@@ -1,0 +1,30 @@
+name: kamailio-dev
+version: "5.0"
+summary: Kamailio SIP Server
+description: Robust, flexible and extensible open source SIP server
+confinement: strict
+grade: devel
+
+apps:
+  kamailio:
+    command: kamailio-snap
+    daemon: forking
+    plugs: [network, network-bind]
+
+parts:
+  kamailio-snap:
+    source: .
+    plugin: dump
+    snap: ["kamailio-snap"]
+  kamailio:
+    source: https://github.com/kamailio/kamailio.git
+    plugin: make
+    make-parameters: [RUNBASEDIR=/tmp/kamailio RAW_SOCKS=no all]
+    build-packages:
+        - git
+        - gcc
+        - build-essential
+        - flex
+        - bison
+        - pkg-config
+

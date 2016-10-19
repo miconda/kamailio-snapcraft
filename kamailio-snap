@@ -1,0 +1,16 @@
+#! /bin/sh
+
+PIDFILE="$SNAP_DATA/kamailio.pid"
+
+if [ ! -e $SNAP_DATA/kamailio.cfg ]; then
+    sed \
+        -e "s;mpath=.*;mpath=\"$SNAP/usr/local/lib64/kamailio/modules/\";" \
+        $SNAP/usr/local/etc/kamailio/kamailio.cfg >$SNAP_DATA/kamailio.cfg
+fi
+
+mkdir -p /tmp/kamailio
+echo "rundir=\"/tmp/kamailio\"" >$SNAP_DATA/kamailio-local.cfg
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/local/lib64/kamailio"
+
+exec $SNAP/usr/local/sbin/kamailio -f $SNAP_DATA/kamailio.cfg
