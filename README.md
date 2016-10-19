@@ -4,7 +4,7 @@ Spec files for building Ubuntu Snap package.
 
 More about snap packages can be found at:
 
-  * https://snapcraft.io
+  * http://snapcraft.io
 
 Kamailio SIP Server project:
 
